@@ -1,6 +1,7 @@
 package com.example.Test.model;
 
 import com.example.Test.entity.UserEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.stream.Collectors;

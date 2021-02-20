@@ -15,20 +15,21 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity createTodo(@RequestBody TodoEntity todo,
-                                     @RequestParam Long userId){
-        try{
+                                     @RequestParam Long userId) {
+        try {
             return ResponseEntity.ok(todoService.createTodo(todo, userId));
-        }   catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибочка вышла :(");
 
         }
 
     }
+
     @PutMapping
-    public ResponseEntity completeTodo(@RequestParam Long id){
-        try{
+    public ResponseEntity completeTodo(@RequestParam Long id) {
+        try {
             return ResponseEntity.ok(todoService.completeTodo(id));
-        }   catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибочка вышла :(");
 
         }

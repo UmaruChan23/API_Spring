@@ -14,24 +14,23 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public UserEntity registration(UserEntity user) throws UserAlreadyExistException{
-        if(userRepo.findByUsername(user.getUsername()) != null ){
+    public void registration(UserEntity user) throws UserAlreadyExistException {
+        if (userRepo.findByUsername(user.getUsername()) != null) {
             throw new UserAlreadyExistException("Пользователь уже существует");
         }
-        return userRepo.save(user);
+        userRepo.save(user);
     }
 
-    public User getOne(Long id) throws UserNotFoundException {
-        UserEntity user= new UserEntity();
-        try {
-            user = userRepo.findById(id).get();
-        } catch (Exception e){
+    public User loadUserByUsername(String username) throws UserNotFoundException {
+        UserEntity user = userRepo.findByUsername(username);
+
+        if (user == null) {
             throw new UserNotFoundException("Пользователь не найден");
         }
         return User.toModel(user);
     }
 
-    public Long deleteUser(Long id){
+    public Long deleteUser(Long id) {
         userRepo.deleteById(id);
         return id;
     }

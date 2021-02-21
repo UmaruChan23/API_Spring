@@ -1,5 +1,7 @@
 package com.example.Test.entity;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import javax.persistence.*;
 import java.util.List;
 

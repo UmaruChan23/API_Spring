@@ -6,22 +6,25 @@ import com.example.Test.exeption.UserNotFoundException;
 import com.example.Test.model.User;
 import com.example.Test.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService  {
 
     @Autowired
     private UserRepo userRepo;
 
     public void registration(UserEntity user) throws UserAlreadyExistException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (userRepo.findByUsername(user.getUsername()) != null) {
             throw new UserAlreadyExistException("Пользователь уже существует");
         }
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
     }
 
-    public User loadUserByUsername(String username) throws UserNotFoundException {
+    public User findUserByUsername(String username) throws UserNotFoundException {
         UserEntity user = userRepo.findByUsername(username);
 
         if (user == null) {

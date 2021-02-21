@@ -16,22 +16,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    public ResponseEntity registration(@RequestBody UserEntity user) {
-        try {
-            userService.registration(user);
-            return ResponseEntity.ok("Пользователь создан!");
-        } catch (UserAlreadyExistException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Ошибочка вышла :(");
-        }
-    }
-
     @GetMapping
     public ResponseEntity getOneUser(@RequestParam String username) {
         try {
-            return ResponseEntity.ok(userService.loadUserByUsername(username));
+            return ResponseEntity.ok(userService.findUserByUsername(username));
         } catch (UserNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -39,8 +27,9 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+
+    @DeleteMapping
+    public ResponseEntity deleteUser(@RequestParam Long id) {
         try {
             return ResponseEntity.ok(userService.deleteUser(id));
         } catch (Exception e) {

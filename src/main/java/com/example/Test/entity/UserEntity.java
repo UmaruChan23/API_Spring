@@ -1,5 +1,6 @@
 package com.example.Test.entity;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class UserEntity {
     private Long id;
     private String username;
     private String password;
+    private String role = "ROLE_USER";
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<TodoEntity> todos;
@@ -20,8 +22,13 @@ public class UserEntity {
     public UserEntity() {
     }
 
+
     public List<TodoEntity> getTodos() {
         return todos;
+    }
+
+    public String getRole() {
+        return this.role;
     }
 
     public void setTodos(List<TodoEntity> todos) {

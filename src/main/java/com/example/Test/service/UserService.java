@@ -10,10 +10,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService  {
+public class UserService {
+
+    private final UserRepo userRepo;
 
     @Autowired
-    private UserRepo userRepo;
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
+
 
     public void registration(UserEntity user) throws UserAlreadyExistException {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -37,4 +42,5 @@ public class UserService  {
         userRepo.deleteById(id);
         return id;
     }
+
 }

@@ -10,21 +10,12 @@ public class TodoEntity {
     private Long id;
     private String title;
     private Boolean completed;
-    private String description;
 
     @ManyToOne
-    @JoinColumn(name= "user_id")
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     public TodoEntity() {
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Long getId() {

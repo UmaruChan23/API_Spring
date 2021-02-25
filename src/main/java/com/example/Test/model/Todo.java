@@ -7,7 +7,7 @@ public class Todo {
     private String title;
     private Boolean completed;
 
-    public static Todo toModel(TodoEntity entity){
+    public static Todo toModel(TodoEntity entity) {
         Todo model = new Todo();
         model.setId(entity.getId());
         model.setCompleted(entity.getCompleted());

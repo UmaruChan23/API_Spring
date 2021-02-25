@@ -22,7 +22,7 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(appUserDetailsService);
+        auth.userDetailsService(appUserDetailsService);
     }
 
     @Override
@@ -32,13 +32,13 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/users","/todos").authenticated()
+                .antMatchers("/users", "/todos").authenticated()
                 .antMatchers("/reg").permitAll().anyRequest().authenticated();
 
     }
 
     @Bean
-    public PasswordEncoder encoder(){
+    public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 }

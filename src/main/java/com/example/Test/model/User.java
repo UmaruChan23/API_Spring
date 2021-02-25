@@ -10,7 +10,7 @@ public class User {
     private String username;
     private List<Todo> todos;
 
-    public static User toModel(UserEntity entity){
+    public static User toModel(UserEntity entity) {
         User model = new User();
         model.setId(entity.getId());
         model.setUsername(entity.getUsername());

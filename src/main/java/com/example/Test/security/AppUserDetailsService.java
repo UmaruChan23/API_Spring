@@ -25,7 +25,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
         if (user != null) {
             return new AppUserDetails(user);
-        }else{
+        } else {
             throw new UsernameNotFoundException("Пользователь не найден");
         }
 

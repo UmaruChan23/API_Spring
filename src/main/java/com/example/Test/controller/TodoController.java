@@ -35,30 +35,28 @@ public class TodoController {
 
     @PatchMapping
     public ResponseEntity changeTodo(@RequestBody String title,
-                                     @RequestParam Long todoId,
-                                     @RequestParam Long userId, Authentication authentication) {
-        if (checkUser(userId, authentication)) {
-            try {
-                return ResponseEntity.ok(todoService.changeTodo(title, todoId));
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Ошибочка вышла :(");
-            }
-        } else {
-            return ResponseEntity.badRequest().body("В доступе отказано");
+                                     @RequestParam Long todoId, Authentication authentication) {
+
+        try {
+            userPrincipal = (AppUserDetails) authentication.getPrincipal();
+            return ResponseEntity.ok(todoService.changeTodo(title, todoId, userPrincipal.getId()));
+        } catch (PermissionDeniedException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибочка вышла :(");
         }
     }
 
     @PutMapping
-    public ResponseEntity completeTodo(@RequestParam Long todoId,
-                                       @RequestParam Long userId, Authentication authentication) {
-        if (checkUser(userId, authentication)) {
-            try {
-                return ResponseEntity.ok(todoService.completeTodo(todoId));
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Ошибочка вышла :(");
-            }
-        } else {
-            return ResponseEntity.badRequest().body("В доступе отказано");
+    public ResponseEntity completeTodo(@RequestParam Long todoId, Authentication authentication) {
+
+        try {
+            userPrincipal = (AppUserDetails) authentication.getPrincipal();
+            return ResponseEntity.ok(todoService.completeTodo(todoId, userPrincipal.getId()));
+        } catch (PermissionDeniedException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибочка вышла :(");
         }
     }
 
@@ -82,4 +80,5 @@ public class TodoController {
         userPrincipal = (AppUserDetails) authentication.getPrincipal();
         return userPrincipal.getId().equals(userId) || userPrincipal.getRole().equals("ROLE_ADMIN");
     }
+
 }

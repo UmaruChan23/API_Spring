@@ -14,7 +14,7 @@ public class UserEntity {
     private Long id;
     private String username;
     private String password;
-    private String role = "ROLE_USER";
+    private String role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<TodoEntity> todos;
@@ -25,6 +25,10 @@ public class UserEntity {
 
     public List<TodoEntity> getTodos() {
         return todos;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getRole() {

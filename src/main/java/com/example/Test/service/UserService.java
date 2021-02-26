@@ -25,6 +25,7 @@ public class UserService {
         if (userRepo.findByUsername(user.getUsername()) != null) {
             throw new UserAlreadyExistException("Пользователь уже существует");
         }
+        user.setRole("ROLE_USER");
         user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
     }

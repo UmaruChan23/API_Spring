@@ -38,8 +38,7 @@ public class TodoController {
                                      @RequestParam Long todoId, Authentication authentication) {
 
         try {
-            userPrincipal = (AppUserDetails) authentication.getPrincipal();
-            return ResponseEntity.ok(todoService.changeTodo(title, todoId, userPrincipal.getId()));
+            return ResponseEntity.ok(todoService.changeTodo(title, todoId,authentication));
         } catch (PermissionDeniedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -51,8 +50,7 @@ public class TodoController {
     public ResponseEntity completeTodo(@RequestParam Long todoId, Authentication authentication) {
 
         try {
-            userPrincipal = (AppUserDetails) authentication.getPrincipal();
-            return ResponseEntity.ok(todoService.completeTodo(todoId, userPrincipal.getId()));
+            return ResponseEntity.ok(todoService.completeTodo(todoId, authentication));
         } catch (PermissionDeniedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {

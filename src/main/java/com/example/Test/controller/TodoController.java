@@ -38,7 +38,7 @@ public class TodoController {
                                      @RequestParam Long todoId, Authentication authentication) {
 
         try {
-            return ResponseEntity.ok(todoService.changeTodo(title, todoId,authentication));
+            return ResponseEntity.ok(todoService.changeTodo(title, todoId, authentication));
         } catch (PermissionDeniedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
